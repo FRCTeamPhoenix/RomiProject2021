@@ -6,6 +6,7 @@
 
 #include <frc2/command/Command.h>
 
+#include "commands/DriveDistance.h"
 #include "subsystems/Drivetrain.h"
 
 /**
@@ -23,6 +24,7 @@ class RobotContainer {
 
  private:
   Drivetrain m_drivetrain;
+  DriveDistance m_driveDistance{&m_drivetrain, units::meter_t(20_cm)};
 
   void ConfigureButtonBindings();
 };

@@ -14,6 +14,8 @@
  * they are needed.
  */
 
+#include <units/length.h>
+
 
 const int MOTOR_LEFT = 0;
 const int MOTOR_RIGHT = 1;
@@ -24,3 +26,9 @@ const int MOVE_X_AXIS = 1;
 
 const int TURN_LEFT_AXIS = 2;
 const int TURN_RIGHT_AXIS = 3;
+
+//Drivetrain variables
+const double TICKS_PER_REVOLUTION = 1440.0;
+const units::meter_t WHEEL_DIAMETER = 70_mm;
+
+const double DRIVE_SPEED = 0.5;
