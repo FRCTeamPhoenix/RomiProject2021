@@ -5,10 +5,12 @@
 Drivetrain::Drivetrain(){
     m_leftEncoder.SetDistancePerPulse(wpi::math::pi * WHEEL_DIAMETER.to<double>() / TICKS_PER_REVOLUTION);
     m_rightEncoder.SetDistancePerPulse(wpi::math::pi * WHEEL_DIAMETER.to<double>() / TICKS_PER_REVOLUTION);
+
+    m_gyro.Reset();
     ZeroEncoders();
 }
 
-void Drivetrain::ArcadeDrive(float moveX, float rotZ){
+void Drivetrain::ArcadeDrive(double moveX, double rotZ){
     m_drive.ArcadeDrive(moveX, rotZ);
 }
 

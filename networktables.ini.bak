@@ -1,0 +1,4 @@
+[NetworkTables Storage 3.0]
+double "/SmartDashboard/Turn D"=0.0025
+double "/SmartDashboard/Turn I"=0
+double "/SmartDashboard/Turn P"=0.023

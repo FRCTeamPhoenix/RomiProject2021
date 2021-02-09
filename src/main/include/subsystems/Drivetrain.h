@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Constants.h"
+#include "sensors/RomiGyro.h"
 
 #include <frc2/command/SubsystemBase.h>
 #include <frc/Spark.h>
@@ -12,7 +13,7 @@ class Drivetrain : public frc2::SubsystemBase{
 public: 
     Drivetrain();
 
-    void ArcadeDrive(float moveX, float rotZ);
+    void ArcadeDrive(double moveX, double rotZ);
 
     units::meter_t GetLeftDistance();
     units::meter_t GetRightDistance();
@@ -20,7 +21,11 @@ public:
 
     //resets distance to zero on both encoders
     void ZeroEncoders();
+
+    RomiGyro* GetGyro() { return &m_gyro; }
 private:
+    RomiGyro m_gyro;
+
     frc::Spark m_leftMotor{MOTOR_LEFT};
     frc::Spark m_rightMotor{MOTOR_RIGHT};
 

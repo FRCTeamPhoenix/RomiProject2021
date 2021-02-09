@@ -7,16 +7,16 @@ m_distanceToGo(distanceToTravel){
 }
 
 void DriveDistance::Initialize() {
-    m_drivetrain->ArcadeDrive(0.0f, 0.0f);
+    m_drivetrain->ArcadeDrive(0.0, 0.0);
     m_drivetrain->ZeroEncoders();
 }
 
 void DriveDistance::Execute(){
-    m_drivetrain->ArcadeDrive(DRIVE_SPEED, 0.0f);
+    m_drivetrain->ArcadeDrive(DRIVE_SPEED, 0.0);
 }
 
 void DriveDistance::End(bool interrupted){
-    m_drivetrain->ArcadeDrive(0.0f, 0.0f);   
+    m_drivetrain->ArcadeDrive(0.0, 0.0);   
 }
 
 bool DriveDistance::IsFinished() {

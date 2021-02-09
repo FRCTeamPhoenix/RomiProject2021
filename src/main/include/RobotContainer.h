@@ -7,6 +7,7 @@
 #include <frc2/command/Command.h>
 
 #include "commands/DriveDistance.h"
+#include "commands/Turn.h"
 #include "subsystems/Drivetrain.h"
 
 /**
@@ -22,8 +23,12 @@ class RobotContainer {
 
   frc2::Command* GetAutonomousCommand();
 
+  void UpdateDebugValues();
+
  private:
   Drivetrain m_drivetrain;
+  
+  Turn m_turn{&m_drivetrain, 180.0};
   DriveDistance m_driveDistance{&m_drivetrain, units::meter_t(20_cm)};
 
   void ConfigureButtonBindings();
