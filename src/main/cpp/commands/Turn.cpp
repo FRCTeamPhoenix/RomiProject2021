@@ -1,6 +1,7 @@
 #include "commands/Turn.h"
 
 #include <frc/smartdashboard/SmartDashboard.h>
+#include <iostream>
 
 Turn::Turn(Drivetrain* drivetrain, double degreesToTurn) : 
 m_drivetrain(drivetrain),
@@ -9,6 +10,8 @@ m_targetDegrees(degreesToTurn) {
 }
 
 void Turn::Initialize(){
+    std::cout << "Started turning " << m_targetDegrees << " degrees" << std::endl;
+
     m_drivetrain->GetGyro()->Reset();
     m_drivetrain->ArcadeDrive(0.0, 0.0);
     m_pid.SetSetpoint(m_targetDegrees);
@@ -18,11 +21,19 @@ void Turn::Initialize(){
         frc::SmartDashboard::PutNumber("Turn P", 0.0);
         frc::SmartDashboard::PutNumber("Turn I", 0.0);
         frc::SmartDashboard::PutNumber("Turn D", 0.0);
+        
 
         frc::SmartDashboard::SetPersistent("Turn P");
         frc::SmartDashboard::SetPersistent("Turn I");
         frc::SmartDashboard::SetPersistent("Turn D");
     }
+
+    if(!frc::SmartDashboard::ContainsKey("Turn FF")){
+        frc::SmartDashboard::PutNumber("Turn FF", 0.0);
+        frc::SmartDashboard::SetPersistent("Turn FF");
+    }
+
+
 }
 
 void Turn::Execute(){
@@ -30,19 +41,21 @@ void Turn::Execute(){
     m_pid.SetI(frc::SmartDashboard::GetNumber("Turn I", 0.0));
     m_pid.SetD(frc::SmartDashboard::GetNumber("Turn D", 0.0));
 
-    //kc = 0.023
-    //pc = 0.32
-    //kp = 0.0138
-    //ki = 0.08625
-    //kd = 0.000552
+    //P = 0.0055
+    //I = 0.0
+    //D = 0.000410
+    //FF = 0.25
 
-    m_drivetrain->ArcadeDrive(0.0, -m_pid.Calculate(m_drivetrain->GetGyro()->GetAngleZ()));
+    double angleZ = m_drivetrain->GetGyro()->GetAngleZ();
+    m_drivetrain->ArcadeDrive(0.0, -m_pid.Calculate(angleZ) - (angleZ / abs(angleZ)) * frc::SmartDashboard::GetNumber("Turn FF", 0.0));
 }
 
 void Turn::End(bool interrupted){
+    std::cout << "Finished turning" << std::endl;
+
     m_drivetrain->ArcadeDrive(0.0, 0.0);
 }
 
 bool Turn::IsFinished(){
-    return false;
+    return abs(m_drivetrain->GetGyro()->GetAngleZ() - m_targetDegrees) <= 2.0;
 }

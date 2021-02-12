@@ -5,6 +5,7 @@
 #pragma once
 
 #include <frc2/command/Command.h>
+#include <frc2/command/SequentialCommandGroup.h>
 
 #include "commands/DriveDistance.h"
 #include "commands/Turn.h"
@@ -28,8 +29,11 @@ class RobotContainer {
  private:
   Drivetrain m_drivetrain;
   
-  Turn m_turn{&m_drivetrain, 180.0};
-  DriveDistance m_driveDistance{&m_drivetrain, units::meter_t(20_cm)};
+  frc2::SequentialCommandGroup m_autonomous{
+    DriveDistance(&m_drivetrain, 10_cm),
+    Turn(&m_drivetrain, 180.0),
+    DriveDistance(&m_drivetrain, 10_cm)
+  };
 
   void ConfigureButtonBindings();
 };

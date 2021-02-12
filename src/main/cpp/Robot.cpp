@@ -19,7 +19,7 @@ void Robot::RobotInit() {}
  */
 void Robot::RobotPeriodic() {
   frc2::CommandScheduler::GetInstance().Run();
-  m_container.UpdateDebugValues();
+  //m_container.UpdateDebugValues();
 }
 
 /**
