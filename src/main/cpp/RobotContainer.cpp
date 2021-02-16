@@ -6,9 +6,17 @@
 
 #include "commands/DriveTeleop.h"
 
+#include <frc/smartdashboard/SmartDashboard.h>
+
 RobotContainer::RobotContainer() {
   // Initialize all of your commands and subsystems here
-  m_drivetrain.SetDefaultCommand(DriveTeleop(&m_drivetrain));
+  m_drivetrain.SetDefaultCommand(DriveTeleop(&m_drivetrain, &m_teleopScheme));
+
+  m_teleopScheme.AddDefault("Trigger Turn", "tmode");
+  m_teleopScheme.AddOption("One Stick", "1mode");
+  m_teleopScheme.AddOption("Two Sticks", "2mode");
+  m_teleopScheme.AddOption("Tank Drive", "tdrive");
+  frc::SmartDashboard::PutData(&m_teleopScheme);
 
   // Configure the button bindings
   ConfigureButtonBindings();

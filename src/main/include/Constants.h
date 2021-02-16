@@ -22,10 +22,13 @@ const int MOTOR_RIGHT = 1;
 
 const int DRIVER_JOYSTICK = 0;
 
-const int MOVE_X_AXIS = 1;
+const int LEFTSTICK_X = 0;
+const int LEFTSTICK_Y = 1;
+const int RIGHTSTICK_X = 4;
+const int RIGHTSTICK_Y = 5;
 
-const int TURN_LEFT_AXIS = 2;
-const int TURN_RIGHT_AXIS = 3;
+const int LEFT_TRIGGER = 2;
+const int RIGHT_TRIGGER = 3;
 
 //Drivetrain variables
 const double TICKS_PER_REVOLUTION = 1440.0;

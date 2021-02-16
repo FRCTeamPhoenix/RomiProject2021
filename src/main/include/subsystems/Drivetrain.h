@@ -14,6 +14,7 @@ public:
     Drivetrain();
 
     void ArcadeDrive(double moveX, double rotZ);
+    void TankDrive(double left, double right);
 
     units::meter_t GetLeftDistance();
     units::meter_t GetRightDistance();

@@ -14,6 +14,10 @@ void Drivetrain::ArcadeDrive(double moveX, double rotZ){
     m_drive.ArcadeDrive(moveX, rotZ);
 }
 
+void Drivetrain::TankDrive(double left, double right){
+    m_drive.TankDrive(left, right);
+}
+
 units::meter_t Drivetrain::GetLeftDistance(){
     return units::meter_t(m_leftEncoder.GetDistance());
 }
