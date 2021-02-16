@@ -7,6 +7,7 @@
 #include <frc2/command/Command.h>
 #include <frc2/command/SequentialCommandGroup.h>
 
+#include "commands/Trajectory.h"
 #include "commands/DriveDistance.h"
 #include "commands/Turn.h"
 #include "subsystems/Drivetrain.h"
