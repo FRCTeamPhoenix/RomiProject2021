@@ -1,5 +1,4 @@
 #include "commands/DriveDistance.h"
-#include <iostream>
 
 #include <frc/smartdashboard/SmartDashboard.h>
 
@@ -10,9 +9,10 @@ m_distanceToGo(distanceToTravel){
 }
 
 void DriveDistance::Initialize() {
-    std::cout << "Started driving " << m_distanceToGo.to<double>() << " meters"<<std::endl;
-    m_drivetrain->ZeroEncoders();
+    frc::SmartDashboard::PutNumber("0Average Distance", m_drivetrain->GetAverageDistance().to<double>());
+    frc::SmartDashboard::PutNumber("0Distance to go", m_distanceToGo.to<double>());
     m_drivetrain->ArcadeDrive(0.0, 0.0);
+    m_drivetrain->ZeroEncoders();
     m_pid.SetSetpoint(m_distanceToGo.to<double>());
 
     if(!frc::SmartDashboard::ContainsKey("Drive P")){
@@ -37,16 +37,15 @@ void DriveDistance::Execute(){
     m_pid.SetI(frc::SmartDashboard::GetNumber("Drive I", 0.0));
     m_pid.SetD(frc::SmartDashboard::GetNumber("Drive D", 0.0));
 
-    //frc::SmartDashboard::UpdateValues();
+    frc::SmartDashboard::UpdateValues();
 
-    m_drivetrain->ArcadeDrive(m_pid.Calculate(-m_drivetrain->GetAverageDistance().to<double>() - frc::SmartDashboard::GetNumber("Drive FF", 0.0)), 0.0);
+    m_drivetrain->ArcadeDrive(-m_pid.Calculate(m_drivetrain->GetAverageDistance().to<double>() - frc::SmartDashboard::GetNumber("Drive FF", 0.0)), 0.0);
 }
 
 void DriveDistance::End(bool interrupted){
-    std::cout << "Finished drving at " << m_drivetrain->GetAverageDistance() - m_distanceToGo << " meters" << std::endl;
     m_drivetrain->ArcadeDrive(0.0, 0.0);   
 }
 
 bool DriveDistance::IsFinished() {
-    return abs((m_drivetrain->GetAverageDistance() - m_distanceToGo).to<double>()) < 0.0075 && m_drivetrain->IsStopped();
+    return m_drivetrain->GetAverageDistance() > m_distanceToGo;
 }

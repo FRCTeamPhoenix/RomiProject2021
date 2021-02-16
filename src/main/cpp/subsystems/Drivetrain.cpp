@@ -26,6 +26,10 @@ units::meter_t Drivetrain::GetAverageDistance(){
     return (GetLeftDistance() + GetRightDistance()) / 2.0;
 }
 
+bool Drivetrain::IsStopped(){
+    return m_leftEncoder.GetStopped() && m_rightEncoder.GetStopped();
+}
+
 void Drivetrain::ZeroEncoders(){
     m_leftEncoder.Reset();
     m_rightEncoder.Reset();

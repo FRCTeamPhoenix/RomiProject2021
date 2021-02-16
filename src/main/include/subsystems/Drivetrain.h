@@ -18,6 +18,7 @@ public:
     units::meter_t GetLeftDistance();
     units::meter_t GetRightDistance();
     units::meter_t GetAverageDistance();
+    bool IsStopped();
 
     //resets distance to zero on both encoders
     void ZeroEncoders();

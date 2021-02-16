@@ -31,8 +31,8 @@ class RobotContainer {
   
   frc2::SequentialCommandGroup m_autonomous{
     DriveDistance(&m_drivetrain, 10_cm),
-    Turn(&m_drivetrain, 180.0),
-    DriveDistance(&m_drivetrain, 10_cm)
+    //Turn(&m_drivetrain, 180.0),
+    //DriveDistance(&m_drivetrain, 10_cm)
   };
 
   void ConfigureButtonBindings();
