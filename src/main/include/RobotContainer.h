@@ -31,7 +31,7 @@ class RobotContainer {
 
  private:
   Drivetrain m_drivetrain;
-  frc::SendableChooser<std::string> m_teleopScheme;
+  frc::SendableChooser<CONTROL_SCHEME> m_teleopScheme;
 
   frc2::SequentialCommandGroup m_autonomous{
     DriveDistance(&m_drivetrain, 10_cm),
