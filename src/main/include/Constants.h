@@ -14,6 +14,7 @@
  * they are needed.
  */
 
+#include <units/time.h>
 #include <units/length.h>
 
 
@@ -22,13 +23,27 @@ const int MOTOR_RIGHT = 1;
 
 const int DRIVER_JOYSTICK = 0;
 
-const int MOVE_X_AXIS = 1;
+const int BUTTON_A = 1;
+const int BUTTON_B = 2;
+const int BUTTON_X = 3;
+const int BUTTON_Y = 4;
 
-const int TURN_LEFT_AXIS = 2;
-const int TURN_RIGHT_AXIS = 3;
+const int LEFTSTICK_X = 0;
+const int LEFTSTICK_Y = 1;
+const int RIGHTSTICK_X = 4;
+const int RIGHTSTICK_Y = 5;
+
+const int LEFT_TRIGGER = 2;
+const int RIGHT_TRIGGER = 3;
 
 //Drivetrain variables
 const double TICKS_PER_REVOLUTION = 1440.0;
 const units::meter_t WHEEL_DIAMETER = 70_mm;
 
 const double DRIVE_SPEED = 0.5;
+
+//Teleop modes
+const enum class CONTROL_SCHEME {TRIGGERS, ONE_STICK, TWO_STICK, TANKDRIVE, CHAOS, QWOP};
+const units::second_t CHAOS_INTERVAL = 10_s;
+const CONTROL_SCHEME CHAOS_POSSIBILITIES[] = {CONTROL_SCHEME::TRIGGERS, CONTROL_SCHEME::ONE_STICK, CONTROL_SCHEME::TWO_STICK, CONTROL_SCHEME::TANKDRIVE, CONTROL_SCHEME::QWOP};
+const std::string CHAOS_MESSAGES[] = {"CHAOS CHAOS CHAOS", "The controls shift...", "Something has changed.", "Something's wrong, I can feel it."}; 
