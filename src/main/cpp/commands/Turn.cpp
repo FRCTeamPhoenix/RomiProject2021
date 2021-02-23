@@ -47,7 +47,8 @@ void Turn::Execute(){
     //FF = 0.25
 
     double angleZ = m_drivetrain->GetGyro()->GetAngleZ();
-    m_drivetrain->ArcadeDrive(0.0, -m_pid.Calculate(angleZ) - (angleZ / abs(angleZ)) * frc::SmartDashboard::GetNumber("Turn FF", 0.0));
+    double delta = angleZ - m_targetDegrees;
+    m_drivetrain->ArcadeDrive(0.0, -m_pid.Calculate(angleZ) + (delta / abs(delta)) * frc::SmartDashboard::GetNumber("Turn FF", 0.0));
 }
 
 void Turn::End(bool interrupted){
