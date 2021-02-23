@@ -42,8 +42,11 @@ const units::meter_t WHEEL_DIAMETER = 70_mm;
 
 const double DRIVE_SPEED = 0.5;
 
+const units::meter_t MIN_STOP_SPEED = 2_cm;
+
 //Teleop modes
 const enum class CONTROL_SCHEME {TRIGGERS, ONE_STICK, TWO_STICK, TANKDRIVE, CHAOS, QWOP};
 const units::second_t CHAOS_INTERVAL = 10_s;
 const CONTROL_SCHEME CHAOS_POSSIBILITIES[] = {CONTROL_SCHEME::TRIGGERS, CONTROL_SCHEME::ONE_STICK, CONTROL_SCHEME::TWO_STICK, CONTROL_SCHEME::TANKDRIVE, CONTROL_SCHEME::QWOP};
 const std::string CHAOS_MESSAGES[] = {"CHAOS CHAOS CHAOS", "The controls shift...", "Something has changed.", "Something's wrong, I can feel it."}; 
+

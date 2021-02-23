@@ -34,9 +34,8 @@ class RobotContainer {
   frc::SendableChooser<CONTROL_SCHEME> m_teleopScheme;
 
   frc2::SequentialCommandGroup m_autonomous{
-    DriveDistance(&m_drivetrain, 10_cm),
     Turn(&m_drivetrain, 180.0),
-    DriveDistance(&m_drivetrain, 10_cm)
+    DriveDistance(&m_drivetrain, 5_in)
   };
 
   void ConfigureButtonBindings();
