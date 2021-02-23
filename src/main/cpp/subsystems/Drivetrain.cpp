@@ -6,6 +6,10 @@ Drivetrain::Drivetrain(){
     m_leftEncoder.SetDistancePerPulse(wpi::math::pi * WHEEL_DIAMETER.to<double>() / TICKS_PER_REVOLUTION);
     m_rightEncoder.SetDistancePerPulse(wpi::math::pi * WHEEL_DIAMETER.to<double>() / TICKS_PER_REVOLUTION);
 
+    //set the speed thresholds
+    m_leftEncoder.SetMinRate(MIN_STOP_SPEED.to<double>());
+    m_rightEncoder.SetMinRate(MIN_STOP_SPEED.to<double>());
+
     m_gyro.Reset();
     ZeroEncoders();
 }

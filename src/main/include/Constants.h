@@ -32,3 +32,5 @@ const double TICKS_PER_REVOLUTION = 1440.0;
 const units::meter_t WHEEL_DIAMETER = 70_mm;
 
 const double DRIVE_SPEED = 0.5;
+
+const units::meter_t MIN_STOP_SPEED = 2_cm;

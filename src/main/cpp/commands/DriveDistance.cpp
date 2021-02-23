@@ -39,7 +39,13 @@ void DriveDistance::Execute(){
 
     //frc::SmartDashboard::UpdateValues();
 
-    m_drivetrain->ArcadeDrive(m_pid.Calculate(-m_drivetrain->GetAverageDistance().to<double>() - frc::SmartDashboard::GetNumber("Drive FF", 0.0)), 0.0);
+    //basic
+    //p = 6.0
+    //i = 0.0
+    //d = 0.0
+    //ff = 0.01
+
+    m_drivetrain->ArcadeDrive(m_pid.Calculate(m_drivetrain->GetAverageDistance().to<double>()) - frc::SmartDashboard::GetNumber("Drive FF", 0.0), 0.0);
 }
 
 void DriveDistance::End(bool interrupted){
@@ -48,5 +54,5 @@ void DriveDistance::End(bool interrupted){
 }
 
 bool DriveDistance::IsFinished() {
-    return abs((m_drivetrain->GetAverageDistance() - m_distanceToGo).to<double>()) < 0.0075 && m_drivetrain->IsStopped();
+    return abs((m_drivetrain->GetAverageDistance() - m_distanceToGo).to<double>()) < 0.0075;
 }
