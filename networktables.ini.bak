@@ -1,9 +1,9 @@
 [NetworkTables Storage 3.0]
 double "/SmartDashboard/Drive D"=0
-double "/SmartDashboard/Drive FF"=0
+double "/SmartDashboard/Drive FF"=0.2
 double "/SmartDashboard/Drive I"=0
 double "/SmartDashboard/Drive P"=6
 double "/SmartDashboard/Turn D"=0.00041
-double "/SmartDashboard/Turn FF"=0.27
+double "/SmartDashboard/Turn FF"=0.24
 double "/SmartDashboard/Turn I"=0
 double "/SmartDashboard/Turn P"=0.0055

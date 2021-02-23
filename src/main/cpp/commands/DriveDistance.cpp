@@ -45,14 +45,16 @@ void DriveDistance::Execute(){
     //d = 0.0
     //ff = 0.01
 
-    m_drivetrain->ArcadeDrive(m_pid.Calculate(m_drivetrain->GetAverageDistance().to<double>()) - frc::SmartDashboard::GetNumber("Drive FF", 0.0), 0.0);
+    double delta = m_distanceToGo.to<double>() - m_drivetrain->GetAverageDistance().to<double>();
+    m_drivetrain->ArcadeDrive(m_pid.Calculate(m_drivetrain->GetAverageDistance().to<double>()) + (delta / abs(delta)) * frc::SmartDashboard::GetNumber("Drive FF", 0.0), 0.0);
 }
 
 void DriveDistance::End(bool interrupted){
-    std::cout << "Finished drving at " << m_drivetrain->GetAverageDistance() - m_distanceToGo << " meters" << std::endl;
+    std::cout << "Finished driving at " << m_drivetrain->GetAverageDistance() - m_distanceToGo << " meters" << std::endl;
     m_drivetrain->ArcadeDrive(0.0, 0.0);   
 }
 
 bool DriveDistance::IsFinished() {
-    return abs((m_drivetrain->GetAverageDistance() - m_distanceToGo).to<double>()) < 0.0075;
+    return false;
+    //return abs((m_drivetrain->GetAverageDistance() - m_distanceToGo).to<double>()) < 0.0075;
 }
