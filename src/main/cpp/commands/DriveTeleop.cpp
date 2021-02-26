@@ -54,14 +54,14 @@ void DriveTeleop::RunControlScheme(CONTROL_SCHEME scheme){
         zButton = std::max(std::min(zButton, 1.0), -1.0);
         double xButton = m_driveJoystick.GetRawButton(BUTTON_Y) - m_driveJoystick.GetRawButton(BUTTON_A);
         xButton = std::max(std::min(xButton, 1.0), -1.0);
-        m_drivetrain->ArcadeDrive(xButton, zButton);
+        m_drivetrain->ArcadeDrive(xButton, zButton * TURN_SPEED_MODIFIER);
         break;
     }
     case CONTROL_SCHEME::TRIGGERS:
     default:
         double zRot = m_driveJoystick.GetRawAxis(RIGHT_TRIGGER) - m_driveJoystick.GetRawAxis(LEFT_TRIGGER);
         zRot = std::max(std::min(zRot, 1.0), -1.0);
-        m_drivetrain->ArcadeDrive(-m_driveJoystick.GetRawAxis(LEFTSTICK_Y), zRot);
+        m_drivetrain->ArcadeDrive(-m_driveJoystick.GetRawAxis(LEFTSTICK_Y), zRot * TURN_SPEED_MODIFIER);
         break;
     }
 }

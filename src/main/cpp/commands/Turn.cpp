@@ -58,5 +58,5 @@ void Turn::End(bool interrupted){
 }
 
 bool Turn::IsFinished(){
-    return abs(m_drivetrain->GetGyro()->GetAngleZ() - m_targetDegrees) <= 2.0;
+    return abs(m_drivetrain->GetGyro()->GetAngleZ() - m_targetDegrees) <= 2.0 && m_drivetrain->IsStopped();
 }

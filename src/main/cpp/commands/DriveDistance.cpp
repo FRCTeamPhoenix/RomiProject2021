@@ -55,6 +55,5 @@ void DriveDistance::End(bool interrupted){
 }
 
 bool DriveDistance::IsFinished() {
-    return false;
-    //return abs((m_drivetrain->GetAverageDistance() - m_distanceToGo).to<double>()) < 0.0075;
+    return abs((m_drivetrain->GetAverageDistance() - m_distanceToGo).to<double>()) < 0.0075 && m_drivetrain->IsStopped();
 }
