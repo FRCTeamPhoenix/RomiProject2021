@@ -1,7 +1,7 @@
 plugins {
     id "cpp"
     id "google-test-test-suite"
-    id "edu.wpi.first.GradleRIO" version "2021.1.2"
+    id "edu.wpi.first.GradleRIO" version "2021.2.2"
 }
 
 // Set this to true to include the src folder in the include directories passed
@@ -26,7 +26,7 @@ dependencies {
 
 // Set the websocket remote host (the Romi IP address).
 sim {
-  envVar "HALSIMWS_HOST", "10.0.0.68"
+  envVar "HALSIMWS_HOST", "10.0.0.2"
 }
 
 model {

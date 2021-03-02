@@ -11,6 +11,7 @@
 #include <frc/smartdashboard/SendableChooser.h>
 
 #include "commands/DriveDistance.h"
+#include "commands/DriveDistanceGyro.h"
 #include "commands/Turn.h"
 #include "subsystems/Drivetrain.h"
 
@@ -34,8 +35,8 @@ class RobotContainer {
   frc::SendableChooser<CONTROL_SCHEME> m_teleopScheme;
 
   frc2::SequentialCommandGroup m_autonomous{
-    Turn(&m_drivetrain, 180.0),
-    DriveDistance(&m_drivetrain, 5_in)
+    //Turn(&m_drivetrain, 180.0),
+    DriveDistanceGyro(&m_drivetrain, 60_cm)
   };
 
   void ConfigureButtonBindings();
