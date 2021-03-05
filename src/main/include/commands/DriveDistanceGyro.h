@@ -25,4 +25,5 @@ private:
     double gyroStart;
 
     frc2::PIDController m_pid{0.0, 0.0, 0.0};
+    frc2::PIDController m_gyroPid{0.0, 0.0, 0.0};
 };
