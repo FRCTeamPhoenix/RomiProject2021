@@ -14,6 +14,7 @@
  * they are needed.
  */
 
+#include <frc/kinematics/DifferentialDriveKinematics.h>
 #include <units/time.h>
 #include <units/length.h>
 
@@ -51,3 +52,22 @@ const units::second_t CHAOS_INTERVAL = 10_s;
 const CONTROL_SCHEME CHAOS_POSSIBILITIES[] = {CONTROL_SCHEME::TRIGGERS, CONTROL_SCHEME::ONE_STICK, CONTROL_SCHEME::TWO_STICK, CONTROL_SCHEME::TANKDRIVE, CONTROL_SCHEME::QWOP};
 const std::string CHAOS_MESSAGES[] = {"CHAOS CHAOS CHAOS", "The controls shift...", "Something has changed.", "Something's wrong, I can feel it."}; 
 
+namespace TRAJECTORY{
+    using Velocity =
+      units::compound_unit<units::meters, units::inverse<units::seconds>>;
+  using Acceleration =
+      units::compound_unit<Velocity, units::inverse<units::seconds>>;
+
+    const units::meter_t TRACKWIDTH = 0.142072613_m;
+    const frc::DifferentialDriveKinematics DRIVE_KINEMATICS{TRACKWIDTH};
+
+    const units::volt_t VOLTS = 0.929_V;
+    const auto VOLT_SECONDS_PER_METER = 6.33_V * 1_s / 1_m;
+    const auto VOLT_SECONDS_SQUARED_PER_METER = 0.0389_V * 1_s * 1_s / 1_m;
+
+    const auto MAX_SPEED_METERS_PER_SECOND = 0.42_mps;
+    const auto MAX_ACCEL_METERS_PER_SECOND_SQUARED = 0.42_m / (1_s * 1_s);
+
+    const double RAMSETE_B = 2.0;
+    const double RAMSETE_ZETA = 0.7;
+}

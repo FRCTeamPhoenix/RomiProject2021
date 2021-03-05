@@ -5,6 +5,7 @@
 #include "RobotContainer.h"
 
 #include "commands/DriveTeleop.h"
+#include "Trajectory.h"
 
 #include <frc/smartdashboard/SmartDashboard.h>
 
