@@ -57,6 +57,11 @@ void DriveDistanceGyro::Execute(){
     //d = 0.0
     //ff = 0.01
 
+    //gyro vals - I don't know why it works with such simple values, but it seems pretty accurate
+    //p = 0.05
+    //i = 0
+    //d = 0
+
     std::cout << m_drivetrain->GetGyro()->GetAngleZ() << std::endl;
     double delta = m_distanceToGo.to<double>() - m_drivetrain->GetAverageDistance().to<double>();
     m_drivetrain->ArcadeDrive(m_pid.Calculate(m_drivetrain->GetAverageDistance().to<double>()) + (delta / abs(delta)) * frc::SmartDashboard::GetNumber("Drive FF", 0.0), m_gyroPid.Calculate(m_drivetrain->GetGyro()->GetAngleZ()));
