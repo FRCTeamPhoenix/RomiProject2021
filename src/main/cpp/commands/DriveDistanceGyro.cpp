@@ -57,6 +57,7 @@ void DriveDistanceGyro::Execute(){
     //d = 0.0
     //ff = 0.01
 
+    std::cout << m_drivetrain->GetGyro()->GetAngleZ() << std::endl;
     double delta = m_distanceToGo.to<double>() - m_drivetrain->GetAverageDistance().to<double>();
     m_drivetrain->ArcadeDrive(m_pid.Calculate(m_drivetrain->GetAverageDistance().to<double>()) + (delta / abs(delta)) * frc::SmartDashboard::GetNumber("Drive FF", 0.0), m_gyroPid.Calculate(m_drivetrain->GetGyro()->GetAngleZ()));
 }
@@ -67,6 +68,6 @@ void DriveDistanceGyro::End(bool interrupted){
 }
 
 bool DriveDistanceGyro::IsFinished() {
-    return abs((m_drivetrain->GetAverageDistance() - m_distanceToGo).to<double>()) < 0.0075 && abs(m_drivetrain->GetGyro()->GetAngleZ()) < 10 && m_drivetrain->IsStopped();
+    return abs((m_drivetrain->GetAverageDistance() - m_distanceToGo).to<double>()) < 0.0075 && abs(m_drivetrain->GetGyro()->GetAngleZ()) < 10/*&& m_drivetrain->IsStopped()*/;
     std::cout << "finished" << std::endl;
 }
