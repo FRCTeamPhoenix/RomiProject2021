@@ -8,6 +8,7 @@
 #include "Trajectory.h"
 
 #include <frc/smartdashboard/SmartDashboard.h>
+#include <frc2/command/InstantCommand.h>
 
 RobotContainer::RobotContainer() {
   // Initialize all of your commands and subsystems here
@@ -28,13 +29,25 @@ RobotContainer::RobotContainer() {
   srand(time(NULL));
 }
 
+RobotContainer::~RobotContainer(){
+  if(m_autonomous != nullptr)
+    delete m_autonomous;
+}
+
 void RobotContainer::ConfigureButtonBindings() {
   // Configure your button bindings here
 }
 
 frc2::Command* RobotContainer::GetAutonomousCommand() {
+  if(m_autonomous != nullptr) delete m_autonomous;
+
   // An example command will be run in autonomous
-  return &m_autonomous;
+  m_autonomous = new frc2::SequentialCommandGroup(
+    Trajectory::GenerateRamseteCommand(&m_drivetrain),
+    frc2::InstantCommand([this]{m_drivetrain.DriveVolts(0_V, 0_V); })
+  );
+
+  return m_autonomous;
 }
 
 void RobotContainer::UpdateDebugValues(){

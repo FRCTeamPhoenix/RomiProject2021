@@ -24,7 +24,7 @@
 class RobotContainer {
  public:
   RobotContainer();
-
+  ~RobotContainer();
   frc2::Command* GetAutonomousCommand();
 
   void UpdateDebugValues();
@@ -33,21 +33,7 @@ class RobotContainer {
   Drivetrain m_drivetrain;
   frc::SendableChooser<CONTROL_SCHEME> m_teleopScheme;
 
-  frc2::SequentialCommandGroup m_autonomous{
-    DriveDistance(&m_drivetrain, 17.8_in),
-    Turn(&m_drivetrain, 90.0),
-    DriveDistance(&m_drivetrain, 17.6_in),
-    Turn(&m_drivetrain, 90.0),
-    DriveDistance(&m_drivetrain, 8.8_in),
-    Turn(&m_drivetrain, 45.0),
-    DriveDistance(&m_drivetrain, 16.1_in),
-    Turn(&m_drivetrain, -45.0),
-    DriveDistance(&m_drivetrain, 8.8_in),
-    Turn(&m_drivetrain, -90.0),
-    DriveDistance(&m_drivetrain, 17.6_in),
-    Turn(&m_drivetrain, -90.0),
-    DriveDistance(&m_drivetrain, 17.8_in)
-  };
+  frc2::SequentialCommandGroup* m_autonomous = nullptr;
 
   void ConfigureButtonBindings();
 };

@@ -7,11 +7,11 @@
 #include <frc/trajectory/TrajectoryGenerator.h>
 #include <frc/kinematics/DifferentialDriveKinematics.h>
 
-frc2::RamseteCommand Trajectory::generateRamseteCommand(){
+frc2::RamseteCommand Trajectory::GenerateRamseteCommand(Drivetrain* drive){
+    frc::SimpleMotorFeedforward<units::meters> motorFF(TRAJECTORY::S, TRAJECTORY::V,TRAJECTORY::A);
+
     auto voltageConstraint = frc::DifferentialDriveVoltageConstraint(
-        frc::SimpleMotorFeedforward<units::meters>(TRAJECTORY::VOLTS,
-            TRAJECTORY::VOLT_SECONDS_PER_METER,
-            TRAJECTORY::VOLT_SECONDS_SQUARED_PER_METER),
+        motorFF,
         TRAJECTORY::DRIVE_KINEMATICS,
         10_V
     );
@@ -24,13 +24,22 @@ frc2::RamseteCommand Trajectory::generateRamseteCommand(){
 
     frc::Trajectory firstTrajectory = frc::TrajectoryGenerator::GenerateTrajectory(
         {frc::Pose2d(0_m, 0_m, frc::Rotation2d(0_deg)),
-        frc::Pose2d(0.2286_m * 1.95, 0.2286_m, frc::Rotation2d(90_deg)),
-        frc::Pose2d(0.2286_m * 1.5, 0.2286_m * 2, frc::Rotation2d(180_deg)),
-        frc::Pose2d(0.2286_m * -0.4125, 0.2286_m + 0.35_m, frc::Rotation2d(180_deg)),
-        frc::Pose2d(-0.2286_m + 0.05_m, 0.2286_m * 2.4, frc::Rotation2d(45_deg)),
-        frc::Pose2d(0.2286_m * 0.8, 0.2286_m * 2.8, frc::Rotation2d(0_deg))},
+        frc::Pose2d(30_cm, 0_m, frc::Rotation2d(0_deg))},
         config
     );
 
-    //reset drivetrain odeometry here
+    frc2::RamseteCommand ramseteCommand(
+        firstTrajectory, [drive](){return drive->GetPose();},
+        frc::RamseteController(TRAJECTORY::RAMSETE_B, TRAJECTORY::RAMSETE_ZETA),
+        motorFF, TRAJECTORY::DRIVE_KINEMATICS,
+        [drive] { return drive->GetWheelSpeeds();},
+        frc2::PIDController(TRAJECTORY::TRAJECTORY_P, 0.0, 0.0),
+        frc2::PIDController(TRAJECTORY::TRAJECTORY_P, 0.0, 0.0),
+        [drive](auto left, auto right) { drive->DriveVolts(left, right); },
+        {drive}
+    );
+
+    drive->ResetOdometry(firstTrajectory.InitialPose());
+
+    return std::move(ramseteCommand);
 }
