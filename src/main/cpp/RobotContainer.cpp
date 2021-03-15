@@ -6,12 +6,25 @@
 
 #include "commands/DriveTeleop.h"
 
+#include <frc/smartdashboard/SmartDashboard.h>
+
 RobotContainer::RobotContainer() {
   // Initialize all of your commands and subsystems here
-  m_drivetrain.SetDefaultCommand(DriveTeleop(&m_drivetrain));
+  m_drivetrain.SetDefaultCommand(DriveTeleop(&m_drivetrain, &m_teleopScheme));
+
+  m_teleopScheme.AddDefault("Trigger Turn", CONTROL_SCHEME::TRIGGERS);
+  m_teleopScheme.AddOption("One Stick", CONTROL_SCHEME::ONE_STICK);
+  m_teleopScheme.AddOption("Two Sticks", CONTROL_SCHEME::TWO_STICK);
+  m_teleopScheme.AddOption("Tank Drive", CONTROL_SCHEME::TANKDRIVE);
+  m_teleopScheme.AddOption("Chaos Mode", CONTROL_SCHEME::CHAOS);
+  m_teleopScheme.AddOption("QWOP Mode", CONTROL_SCHEME::QWOP);
+  frc::SmartDashboard::PutData(&m_teleopScheme);
 
   // Configure the button bindings
   ConfigureButtonBindings();
+
+  //set the random seed
+  srand(time(NULL));
 }
 
 void RobotContainer::ConfigureButtonBindings() {

@@ -6,12 +6,20 @@ Drivetrain::Drivetrain(){
     m_leftEncoder.SetDistancePerPulse(wpi::math::pi * WHEEL_DIAMETER.to<double>() / TICKS_PER_REVOLUTION);
     m_rightEncoder.SetDistancePerPulse(wpi::math::pi * WHEEL_DIAMETER.to<double>() / TICKS_PER_REVOLUTION);
 
+    //set the speed thresholds
+    m_leftEncoder.SetMinRate(MIN_STOP_SPEED.to<double>());
+    m_rightEncoder.SetMinRate(MIN_STOP_SPEED.to<double>());
+
     m_gyro.Reset();
     ZeroEncoders();
 }
 
 void Drivetrain::ArcadeDrive(double moveX, double rotZ){
     m_drive.ArcadeDrive(moveX, rotZ);
+}
+
+void Drivetrain::TankDrive(double left, double right){
+    m_drive.TankDrive(left, right);
 }
 
 units::meter_t Drivetrain::GetLeftDistance(){
@@ -24,6 +32,10 @@ units::meter_t Drivetrain::GetRightDistance(){
 
 units::meter_t Drivetrain::GetAverageDistance(){
     return (GetLeftDistance() + GetRightDistance()) / 2.0;
+}
+
+bool Drivetrain::IsStopped(){
+    return m_leftEncoder.GetStopped() && m_rightEncoder.GetStopped();
 }
 
 void Drivetrain::ZeroEncoders(){

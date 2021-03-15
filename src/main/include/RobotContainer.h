@@ -4,8 +4,11 @@
 
 #pragma once
 
+#include <string>
+
 #include <frc2/command/Command.h>
 #include <frc2/command/SequentialCommandGroup.h>
+#include <frc/smartdashboard/SendableChooser.h>
 
 #include "commands/Trajectory.h"
 #include "commands/DriveDistance.h"
@@ -29,11 +32,22 @@ class RobotContainer {
 
  private:
   Drivetrain m_drivetrain;
-  
+  frc::SendableChooser<CONTROL_SCHEME> m_teleopScheme;
+
   frc2::SequentialCommandGroup m_autonomous{
-    DriveDistance(&m_drivetrain, 10_cm),
-    Turn(&m_drivetrain, 180.0),
-    DriveDistance(&m_drivetrain, 10_cm)
+    DriveDistance(&m_drivetrain, 17.8_in),
+    Turn(&m_drivetrain, 90.0),
+    DriveDistance(&m_drivetrain, 17.6_in),
+    Turn(&m_drivetrain, 90.0),
+    DriveDistance(&m_drivetrain, 8.8_in),
+    Turn(&m_drivetrain, 45.0),
+    DriveDistance(&m_drivetrain, 16.1_in),
+    Turn(&m_drivetrain, -45.0),
+    DriveDistance(&m_drivetrain, 8.8_in),
+    Turn(&m_drivetrain, -90.0),
+    DriveDistance(&m_drivetrain, 17.6_in),
+    Turn(&m_drivetrain, -90.0),
+    DriveDistance(&m_drivetrain, 17.8_in)
   };
 
   void ConfigureButtonBindings();
