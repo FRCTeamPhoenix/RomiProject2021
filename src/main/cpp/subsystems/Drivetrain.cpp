@@ -16,7 +16,7 @@ Drivetrain::Drivetrain(){
 }
 
 void Drivetrain::Periodic(){
-    m_odometry.Update(frc::Rotation2d(units::degree_t(m_gyro.GetAngleZ())),
+    m_odometry.Update(frc::Rotation2d(units::degree_t(-m_gyro.GetAngleZ())),
         units::meter_t(m_leftEncoder.GetDistance()), 
         units::meter_t(m_rightEncoder.GetDistance()));
 
@@ -36,7 +36,7 @@ void Drivetrain::TankDrive(double left, double right){
 void Drivetrain::DriveVolts(units::volt_t left, units::volt_t right){
     //set volts and feed drivetrain so no error
     m_leftMotor.SetVoltage(left);
-    m_rightMotor.SetVoltage(right);
+    m_rightMotor.SetVoltage(-right);
     m_drive.Feed();
 }
 

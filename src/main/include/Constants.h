@@ -16,6 +16,8 @@
 
 #include <frc/kinematics/DifferentialDriveKinematics.h>
 #include <units/time.h>
+#include <units/velocity.h>
+#include <units/acceleration.h>
 #include <units/voltage.h>
 #include <units/length.h>
 
@@ -63,11 +65,11 @@ namespace TRAJECTORY{
     const frc::DifferentialDriveKinematics DRIVE_KINEMATICS{TRACKWIDTH};
 
     const units::volt_t S = 0.929_V;
-    const auto V = 6.33_V * 1_s / 1_m;
-    const auto A = 0.0389_V * 1_s * 1_s / 1_m;
+    const auto V = 6.33 * 1_V * 1_s / 1_m;
+    const auto A = 0.0389 * 1_V * 1_s * 1_s / 1_m;
 
     const auto MAX_SPEED_METERS_PER_SECOND = 0.42_mps;
-    const auto MAX_ACCEL_METERS_PER_SECOND_SQUARED = 0.42_m / (1_s * 1_s);
+    const auto MAX_ACCEL_METERS_PER_SECOND_SQUARED = 0.42_mps_sq;
 
     const double RAMSETE_B = 2.0;
     const double RAMSETE_ZETA = 0.7;

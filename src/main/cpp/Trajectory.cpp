@@ -13,7 +13,7 @@ frc2::RamseteCommand Trajectory::GenerateRamseteCommand(Drivetrain* drive){
     auto voltageConstraint = frc::DifferentialDriveVoltageConstraint(
         motorFF,
         TRAJECTORY::DRIVE_KINEMATICS,
-        10_V
+        6.5_V
     );
     
     frc::TrajectoryConfig config(TRAJECTORY::MAX_SPEED_METERS_PER_SECOND,
@@ -23,10 +23,9 @@ frc2::RamseteCommand Trajectory::GenerateRamseteCommand(Drivetrain* drive){
     config.AddConstraint(voltageConstraint);
 
     frc::Trajectory firstTrajectory = frc::TrajectoryGenerator::GenerateTrajectory(
-        {frc::Pose2d(0_m, 0_m, frc::Rotation2d(0_deg)),
-        frc::Pose2d(30_cm, 0_m, frc::Rotation2d(0_deg))},
-        config
-    );
+      {frc::Pose2d(0_m, 0_m, frc::Rotation2d(0_deg)),
+      frc::Pose2d(1_m, 10_cm, frc::Rotation2d(0_deg))},
+      config);
 
     frc2::RamseteCommand ramseteCommand(
         firstTrajectory, [drive](){return drive->GetPose();},
