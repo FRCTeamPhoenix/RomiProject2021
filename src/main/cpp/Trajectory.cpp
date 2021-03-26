@@ -26,11 +26,12 @@ frc2::RamseteCommand Trajectory::GenerateRamseteCommand(Drivetrain* drive){
     frc::Trajectory firstTrajectory = frc::TrajectoryGenerator::GenerateTrajectory(
       {frc::Pose2d(0_m, 0_m, frc::Rotation2d(0_deg)),
       frc::Pose2d(38_cm, 8_cm, frc::Rotation2d(45_deg)),
-      frc::Pose2d(45_cm, 29_cm, frc::Rotation2d(90_deg))},
-      //frc::Pose2d(35_cm, 44_cm, frc::Rotation2d(180_deg)),
-      //frc::Pose2d(-15_cm, 34_cm, frc::Rotation2d(180_deg)),
-      //frc::Pose2d(-25_cm, 44_cm, frc::Rotation2d(90_deg))},
-      //frc::Pose2d(22_cm, 70_cm, frc::Rotation2d(0_deg))},
+      frc::Pose2d(45_cm, 29_cm, frc::Rotation2d(90_deg)),
+      frc::Pose2d(35_cm, 44_cm, frc::Rotation2d(180_deg)),
+      frc::Pose2d(-12_cm, 34_cm, frc::Rotation2d(180_deg)),
+      frc::Pose2d(-20_cm, 44_cm, frc::Rotation2d(90_deg)),
+      frc::Pose2d(0_cm, 71_cm, frc::Rotation2d(45_deg)),
+      frc::Pose2d(22_cm, 70_cm, frc::Rotation2d(0_deg))},
       config);
 
     frc2::RamseteCommand ramseteCommand(

@@ -71,5 +71,5 @@ void Drivetrain::ZeroEncoders(){
 }
 void Drivetrain::ResetOdometry(frc::Pose2d pose){
     ZeroEncoders();
-    m_odometry.ResetPosition(pose, frc::Rotation2d(units::degree_t(m_gyro.GetAngleZ())));
+    m_odometry.ResetPosition(pose, frc::Rotation2d(units::degree_t(-m_gyro.GetAngleZ())));
 }
