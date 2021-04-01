@@ -29,6 +29,10 @@ void Drivetrain::ArcadeDrive(double moveX, double rotZ){
     m_drive.ArcadeDrive(moveX, rotZ);
 }
 
+void Drivetrain::CurvatureDrive(double moveX, double rotZ){
+    m_drive.CurvatureDrive(moveX, rotZ, moveX < 0.1);
+}
+
 void Drivetrain::TankDrive(double left, double right){
     m_drive.TankDrive(left, right);
 }
