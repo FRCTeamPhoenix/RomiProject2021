@@ -18,7 +18,11 @@ public:
     //called periodically to update pose
     void Periodic() override;
 
+    //basic arcade drive
     void ArcadeDrive(double moveX, double rotZ);
+    //curvature drive designed for turning while moving (handles turn in place if xSpeed < 0.005)
+    void CurvatureDrive(double moveX, double rotZ);
+
     void TankDrive(double left, double right);
     void DriveVolts(units::volt_t left, units::volt_t right);
 
