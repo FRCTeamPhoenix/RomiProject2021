@@ -24,20 +24,10 @@ frc2::RamseteCommand Trajectory::GenerateRamseteCommand(Drivetrain* drive){
 
 
     frc::Trajectory firstTrajectory = frc::TrajectoryGenerator::GenerateTrajectory(
-      {frc::Pose2d(7.5_in, 7.5_in, frc::Rotation2d(0_deg)),
-      frc::Pose2d(22.5_in, 15_in, frc::Rotation2d(45_deg)),
-      frc::Pose2d(30_in, 22.5_in, frc::Rotation2d(0_deg)),
-      frc::Pose2d(60_in, 22.5_in, frc::Rotation2d(0_deg)),
-      frc::Pose2d(67.5_in, 15_in, frc::Rotation2d(-45_deg)),
-      frc::Pose2d(75_in, 7.5_in, frc::Rotation2d(0_deg)),
-      frc::Pose2d(82.5_in, 15_in, frc::Rotation2d(90_deg)),
-      frc::Pose2d(75_in, 22.5_in, frc::Rotation2d(180_deg)),
-      frc::Pose2d(67.5_in, 15_in, frc::Rotation2d(225_deg)),
-      frc::Pose2d(60_in, 7.5_in, frc::Rotation2d(180_deg)),
-      frc::Pose2d(30_in, 7.5_in, frc::Rotation2d(180_deg)),
-      frc::Pose2d(22.5_in, 15_in, frc::Rotation2d(135_deg)),
-      frc::Pose2d(15_in, 22.5_in, frc::Rotation2d(180_deg)),
-      frc::Pose2d(7.5_in, 22.5_in, frc::Rotation2d(180_deg))},
+      {frc::Pose2d(0_m, 0_m, frc::Rotation2d(0_deg)),
+      frc::Pose2d(1_m, 0.3_m, frc::Rotation2d(45_deg)),
+      frc::Pose2d(1_m, -0.3_m, frc::Rotation2d(135_deg)),
+      frc::Pose2d(0_m, 0_m, frc::Rotation2d(180_deg))},
       config);
 
     frc2::RamseteCommand ramseteCommand(
@@ -46,7 +36,7 @@ frc2::RamseteCommand Trajectory::GenerateRamseteCommand(Drivetrain* drive){
         motorFF, TRAJECTORY::DRIVE_KINEMATICS,
         [drive] { return drive->GetWheelSpeeds();},
         frc2::PIDController(TRAJECTORY::TRAJECTORY_P, 0.0, 0.0),
-        frc2::PIDController(TRAJECTORY::TRAJECTORY_P, 0.0, 0.0),
+        frc2::PIDController(TRAJECTORY::TRAJECTORY_P - 0.1, 0.0, 0.0),
         [drive](auto left, auto right) { drive->DriveVolts(left, right); },
         {drive}
     );
