@@ -6,8 +6,9 @@
 #include <frc/trajectory/TrajectoryConfig.h>
 #include <frc/trajectory/TrajectoryGenerator.h>
 #include <frc/kinematics/DifferentialDriveKinematics.h>
+#include <frc2/command/InstantCommand.h>
 
-frc2::RamseteCommand Trajectory::GenerateRamseteCommand(Drivetrain* drive){
+frc2::SequentialCommandGroup Trajectory::GenerateRamseteCommand(Drivetrain* drive, std::vector<frc::Pose2d> poses){
     frc::SimpleMotorFeedforward<units::meters> motorFF(TRAJECTORY::S, TRAJECTORY::V,TRAJECTORY::A);
 
     auto voltageConstraint = frc::DifferentialDriveVoltageConstraint(
@@ -24,10 +25,7 @@ frc2::RamseteCommand Trajectory::GenerateRamseteCommand(Drivetrain* drive){
 
 
     frc::Trajectory firstTrajectory = frc::TrajectoryGenerator::GenerateTrajectory(
-      {frc::Pose2d(0_m, 0_m, frc::Rotation2d(0_deg)),
-      frc::Pose2d(1_m, 0.3_m, frc::Rotation2d(45_deg)),
-      frc::Pose2d(1_m, -0.3_m, frc::Rotation2d(135_deg)),
-      frc::Pose2d(0_m, 0_m, frc::Rotation2d(180_deg))},
+      poses,
       config);
 
     frc2::RamseteCommand ramseteCommand(
@@ -35,13 +33,14 @@ frc2::RamseteCommand Trajectory::GenerateRamseteCommand(Drivetrain* drive){
         frc::RamseteController(TRAJECTORY::RAMSETE_B, TRAJECTORY::RAMSETE_ZETA),
         motorFF, TRAJECTORY::DRIVE_KINEMATICS,
         [drive] { return drive->GetWheelSpeeds();},
-        frc2::PIDController(TRAJECTORY::TRAJECTORY_P, 0.0, 0.0),
         frc2::PIDController(TRAJECTORY::TRAJECTORY_P - 0.1, 0.0, 0.0),
+        frc2::PIDController(TRAJECTORY::TRAJECTORY_P, 0.0, 0.0),
         [drive](auto left, auto right) { drive->DriveVolts(left, right); },
         {drive}
     );
 
-    drive->ResetOdometry(firstTrajectory.InitialPose());
-
-    return std::move(ramseteCommand);
+    return std::move(frc2::SequentialCommandGroup{
+        frc2::InstantCommand([drive, firstTrajectory]{drive->ResetOdometry(firstTrajectory.InitialPose());}),
+        std::move(ramseteCommand)
+    });
 }

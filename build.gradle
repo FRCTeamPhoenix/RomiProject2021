@@ -26,7 +26,7 @@ dependencies {
 
 // Set the websocket remote host (the Romi IP address).
 sim {
-  envVar "HALSIMWS_HOST", "10.0.0.68"
+  envVar "HALSIMWS_HOST", "10.0.0.56"
 }
 
 model {

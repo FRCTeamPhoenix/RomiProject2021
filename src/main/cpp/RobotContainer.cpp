@@ -43,7 +43,13 @@ frc2::Command* RobotContainer::GetAutonomousCommand() {
 
   // An example command will be run in autonomous
   m_autonomous = new frc2::SequentialCommandGroup(
-    Trajectory::GenerateRamseteCommand(&m_drivetrain),
+    Trajectory::GenerateRamseteCommand(&m_drivetrain,
+      {frc::Pose2d(0_cm, 0_cm, frc::Rotation2d(0_deg)),
+      frc::Pose2d(50_cm, 0_cm, frc::Rotation2d(0_deg))}),
+    Turn(&m_drivetrain, 180.0),
+    Trajectory::GenerateRamseteCommand(&m_drivetrain,
+      {frc::Pose2d(50_cm, 0_cm, frc::Rotation2d(180_deg)),
+      frc::Pose2d(00_cm, 0_cm, frc::Rotation2d(180_deg))}),
     frc2::InstantCommand([this]{m_drivetrain.DriveVolts(0_V, 0_V); })
   );
 
