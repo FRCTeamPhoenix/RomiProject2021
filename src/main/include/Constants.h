@@ -74,5 +74,5 @@ namespace TRAJECTORY{
     const double RAMSETE_B = 2.0;
     const double RAMSETE_ZETA = 0.7;
 
-    const double TRAJECTORY_P = 0.085;
+    const double TRAJECTORY_P = 0.09;
 }

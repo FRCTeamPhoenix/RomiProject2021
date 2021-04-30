@@ -40,10 +40,10 @@ void DriveTeleop::RunControlScheme(CONTROL_SCHEME scheme){
     switch (scheme)
     {
     case CONTROL_SCHEME::ONE_STICK:
-        m_drivetrain->ArcadeDrive(-m_driveJoystick.GetRawAxis(LEFTSTICK_Y), m_driveJoystick.GetRawAxis(LEFTSTICK_X));
+        m_drivetrain->CurvatureDrive(-m_driveJoystick.GetRawAxis(LEFTSTICK_Y), m_driveJoystick.GetRawAxis(LEFTSTICK_X));
         break;
     case CONTROL_SCHEME::TWO_STICK:
-        m_drivetrain->ArcadeDrive(-m_driveJoystick.GetRawAxis(LEFTSTICK_Y), m_driveJoystick.GetRawAxis(RIGHTSTICK_X));
+        m_drivetrain->CurvatureDrive(-m_driveJoystick.GetRawAxis(LEFTSTICK_Y), m_driveJoystick.GetRawAxis(RIGHTSTICK_X));
         break;
     case CONTROL_SCHEME::TANKDRIVE:
         m_drivetrain->TankDrive(-m_driveJoystick.GetRawAxis(LEFTSTICK_Y), -m_driveJoystick.GetRawAxis(RIGHTSTICK_Y));
@@ -54,14 +54,14 @@ void DriveTeleop::RunControlScheme(CONTROL_SCHEME scheme){
         zButton = std::max(std::min(zButton, 1.0), -1.0);
         double xButton = m_driveJoystick.GetRawButton(BUTTON_Y) - m_driveJoystick.GetRawButton(BUTTON_A);
         xButton = std::max(std::min(xButton, 1.0), -1.0);
-        m_drivetrain->ArcadeDrive(xButton, zButton * TURN_SPEED_MODIFIER);
+        m_drivetrain->CurvatureDrive(xButton, zButton * TURN_SPEED_MODIFIER);
         break;
     }
     case CONTROL_SCHEME::TRIGGERS:
     default:
         double zRot = m_driveJoystick.GetRawAxis(RIGHT_TRIGGER) - m_driveJoystick.GetRawAxis(LEFT_TRIGGER);
         zRot = std::max(std::min(zRot, 1.0), -1.0);
-        m_drivetrain->ArcadeDrive(-m_driveJoystick.GetRawAxis(LEFTSTICK_Y), zRot * TURN_SPEED_MODIFIER);
+        m_drivetrain->CurvatureDrive(-m_driveJoystick.GetRawAxis(LEFTSTICK_Y), zRot * TURN_SPEED_MODIFIER);
         break;
     }
 }
