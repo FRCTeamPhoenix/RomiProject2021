@@ -33,7 +33,7 @@ frc2::SequentialCommandGroup Trajectory::GenerateRamseteCommand(Drivetrain* driv
         frc::RamseteController(TRAJECTORY::RAMSETE_B, TRAJECTORY::RAMSETE_ZETA),
         motorFF, TRAJECTORY::DRIVE_KINEMATICS,
         [drive] { return drive->GetWheelSpeeds();},
-        frc2::PIDController(TRAJECTORY::TRAJECTORY_P - 0.1, 0.0, 0.0),
+        frc2::PIDController(TRAJECTORY::TRAJECTORY_P, 0.0, 0.0),
         frc2::PIDController(TRAJECTORY::TRAJECTORY_P, 0.0, 0.0),
         [drive](auto left, auto right) { drive->DriveVolts(left, right); },
         {drive}
